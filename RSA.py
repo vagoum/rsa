@@ -48,12 +48,12 @@ for i in xrange(totient):
         public_enc_key = i
         break
 private_dec_key = extended_gcd(public_enc_key,totient)
-"""print "Enter numeral for encryption:"
+print "Enter numeral for encryption:"
 plaintext = raw_input(user)
 ciphertext = pow(plaitext,public_enc_key,n)
 print "The cipher text is :%d" %ciphertext
 decode = pow(ciphertext,private_dec_key,n)
-print "Decoded: %d" %decode"""
+print "Decoded: %d" %decode
 
 
        
