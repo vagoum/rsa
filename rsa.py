@@ -1,5 +1,4 @@
 import random,sys
-
 def Miller_Rabin(n,k):
     d = n-1
     s = 0
@@ -30,30 +29,34 @@ def extended_gcd(k,l):
     else:
         q = k/l
         r = k%l
-        (x,y) = extended_gcd(b,r)
+        x = extended_gcd(l,r)
     return x
-    
-par = argv[2]
-bitlength = argv[1]
 p = [0,0]
-for i in range(0,2):     #generation of 2 64-bit prime numbers
-    p[i] = random.getrandbits(int(bitlength))
-    while Miller_Rabin(p[i],par) != True:
-        p[i] = random.getrandbits(64)
-
+for i in range(0,2):    
+    p[i] = random.getrandbits(int(8))
+    while Miller_Rabin(p[i],10) != True:
+        p[i] = random.getrandbits(8)
 n = p[0]*p[1]
 totient = (p[0]-1)*(p[1]-1)
-for i in xrange(totient): 
+for i in range(1,totient): 
     if not totient%i == 0:
         public_enc_key = i
         break
 private_dec_key = extended_gcd(public_enc_key,totient)
+print private_dec_key
+
+
+
+#Initilization of the encryption/decryption process
+user_input = ">>>"
 print "Enter numeral for encryption:"
-plaintext = raw_input(user)
-ciphertext = pow(plaitext,public_enc_key,n)
+plaintext = int(raw_input(user_input))
+ciphertext = pow(plaintext,public_enc_key,n)
 print "The cipher text is :%d" %ciphertext
 decode = pow(ciphertext,private_dec_key,n)
-print "Decoded: %d" %decode
+print "Decoded text: %d" %decode
+
+
 
 
        
