@@ -22,14 +22,11 @@ def validation(a,d,n,s):
         power = pow(power,2,n)
     return (power == n-1)
     
-                
-def extended_gcd(k,l):
-    if l == 0 :
-        return 1
-    else:
-        q = k/l
-        r = k%l
-        x = extended_gcd(l,r)
+#extended euclidian to be corrected                
+def extended_gcd(a,b):
+    while a%b != 0:
+        q = a/b
+        x= extended_gcd(b,a%b)
     return x
 p = [0,0]
 for i in range(0,2):    
@@ -42,7 +39,7 @@ for i in range(1,totient):
     if not totient%i == 0:
         public_enc_key = i
         break
-private_dec_key = extended_gcd(public_enc_key,totient)
+private_dec_key = extended_gcd(totient,public_enc_key)
 print private_dec_key
 
 
