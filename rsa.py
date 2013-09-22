@@ -21,13 +21,25 @@ def validation(a,d,n,s):
            return True
         power = pow(power,2,n)
     return (power == n-1)
-    
-#extended euclidian to be corrected                
+              
 def extended_gcd(a,b):
-    while a%b != 0:
+    aux1 = 0
+    aux2 = 1
+    n = a
+    while b != 0:
         q = a/b
-        x= extended_gcd(b,a%b)
-    return x
+        r = a%b
+        a = b
+        b = r
+        temp = aux2
+        aux2 = aux1-q*aux2
+        aux1 = temp
+    if temp < 0 :
+        temp = n + temp
+    return temp
+
+#these nasty constants must be eliminated!
+
 p = [0,0]
 for i in range(0,2):    
     p[i] = random.getrandbits(int(8))
@@ -40,6 +52,7 @@ for i in range(1,totient):
         public_enc_key = i
         break
 private_dec_key = extended_gcd(totient,public_enc_key)
+
 print private_dec_key
 
 
