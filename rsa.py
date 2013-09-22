@@ -49,38 +49,39 @@ def gcd(m,n):
     	n = m%n
     	m = temp
     return m
-#these nasty constants must be eliminated!
-
-p = [0,0]
-for i in range(0,2):    
-    p[i] = random.getrandbits(int(8))
+    
+    
+p = [0, 0]
+for i in range(0, 2):    
+    p[i] = random.getrandbits(int(26))
     while Miller_Rabin(p[i],100) != True:
-        p[i] = random.getrandbits(8)
-n = p[0]*p[1]
+        p[i] = random.getrandbits(26)
+modulus = p[0]*p[1]
 totient = (p[0]-1)*(p[1]-1)
-for i in range(2,totient): 
-    if gcd(totient,i) == 1:
+for i in range(2,int(totient**0.5)): 
+    if gcd(totient, i) == 1:
         public_enc_key = i
         break
-private_dec_key = extended_gcd(totient,public_enc_key)
+private_dec_key = extended_gcd(totient,
+                               public_enc_key)
 
-print n
+print modulus
 print public_enc_key
 print private_dec_key
-
-
-
 #Initilization of the encryption/decryption process
+
 user_input = ">>>"
 plaintext = int(raw_input(user_input))
 print "Enter numeral for encryption:"
-while plaintext > n:
+while plaintext > modulus:
     print "Invalid message length.Please try a shorter numeral"
     print "Enter numeral for encryption:"
     plaintext = int(raw_input(user_input))
-ciphertext = pow(plaintext,public_enc_key,n)
+ciphertext = pow(plaintext,
+                 public_enc_key, modulus)
 print "The cipher text is :%d" %ciphertext
-decode = pow(ciphertext,private_dec_key,n)
+decode = pow(ciphertext, 
+             private_dec_key, modulus)
 print "Decoded text: %d" %decode
 
 
