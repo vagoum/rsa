@@ -2,31 +2,30 @@
 import random
 import sys
 
-
 def Miller_Rabin(n, k=100):
     if n % 2 == 0:
         return False
     s = 0
-    d = n-1
+    d =  n-1
     while d % 2 == 0:
-        d = d/2
+        d = d / 2
         s += 1
     assert(2**s*d == n-1)
     for i in xrange(k):
-        a = random.randrange(2, n)
+        a = random.randrange(2, n-1)
         return validation(a, d, n, s)
         if not validation:
             return False
     return True
 
-def validation(a,d,n,s):
-    power = pow(a,d,n)
+def validation(a, d, n, s):
+    power = pow(a, d, n)
     if power == 1:
         return True
     for i in  xrange(s-1):
         if power == n-1:
            return True
-        power = pow(power,2,n)
+        power = pow(power, 2, n)
     return (power == n-1)
               
 def extended_gcd(a,b):
@@ -45,10 +44,10 @@ def extended_gcd(a,b):
         temp = n + temp
     return temp
 
-def gcd(m,n):
+def gcd(m, n):
     while n > 0:
     	temp = n
-    	n = m%n
+    	n = m % n
     	m = temp
     return m
 
@@ -57,22 +56,23 @@ def get_comprime(number):
         if gcd(number, i) == 1:
         	   return i 
         	     
-def init_rsa(bitlength, millerab_par):    
+def init_rsa(millerab_par, bitlength):    
     p = [0, 0]
     for i in range(0, 2):    
         p[i] = random.getrandbits(int(bitlength))
-        while Miller_Rabin(p[i],millerab_par) != True:
+        while Miller_Rabin(p[i], millerab_par) != True:
             p[i] = random.getrandbits(bitlength)
     modulus = p[0]*p[1]
     totient = (p[0]-1)*(p[1]-1)
     public_enc_key = get_comprime(totient)
     private_dec_key = extended_gcd(totient,
                                    public_enc_key)
-    return modulus,public_enc_key,private_dec_key
+    return modulus, public_enc_key, private_dec_key
                                
 if __name__ == "__main__":
     import sys
-    pseudoprime, public_key, private_key = init_rsa(int(sys.argv[1]), int(sys.argv[2]))
+    bitlength = 16
+    pseudoprime, public_key, private_key = init_rsa(int(sys.argv[1]), bitlength) 
     print pseudoprime
     print public_key
     print private_key
