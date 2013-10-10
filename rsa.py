@@ -51,41 +51,49 @@ def gcd(m, n):
     	m = temp
     return m
 
-def get_comprime(number):
-    for i in range(2,int(number**0.5)):
-        if gcd(number, i) == 1:
+def get_comprime( number ):
+    for i in range(2,int( number**0.5 )):
+        if gcd( number, i ) == 1:
         	   return i 
         	     
-def init_rsa(millerab_par, bitlength):    
+def init_rsa( millerab_par, bitlength ):    
     p = [0, 0]
     for i in range(0, 2):    
-        p[i] = random.getrandbits(int(bitlength))
-        while Miller_Rabin(p[i], millerab_par) != True:
-            p[i] = random.getrandbits(bitlength)
+        p[i] = random.getrandbits( int( bitlength ))
+        while Miller_Rabin( p[i], millerab_par ) != True:
+            p[i] = random.getrandbits( bitlength )
+   
+
+
     modulus = p[0]*p[1]
-    totient = (p[0]-1)*(p[1]-1)
-    public_enc_key = get_comprime(totient)
+    totient = ( p[0]-1 )*( p[1]-1 )
+    public_enc_key = get_comprime( totient )
     private_dec_key = extended_gcd(totient,
                                    public_enc_key)
     return modulus, public_enc_key, private_dec_key
                                
 if __name__ == "__main__":
     import sys
-    bitlength = 16
-    pseudoprime, public_key, private_key = init_rsa(int(sys.argv[1]), bitlength) 
+    bitlength = 16 
+    pseudoprime, public_key, private_key = init_rsa( int( sys.argv[1]),
+                                                            bitlength) 
     print pseudoprime
     print public_key
     print private_key
+
+
+
     user_input = ">>>"
-    plaintext = int(raw_input(user_input))
+    plaintext = int( raw_input( user_input ))
     print "Enter numeral for encryption:"
+    
     while plaintext > pseudoprime:
         print "Invalid message length.Please try a shorter numeral"
         print "Enter numeral for encryption:"
-        plaintext = int(raw_input(user_input))
+        plaintext = int( raw_input( user_input ))
     ciphertext = pow(plaintext,
                      public_key, pseudoprime)
     print "The cipher text is :%d" %ciphertext
-    decode = pow(ciphertext, 
-             private_key, pseudoprime)
+    decode = pow( ciphertext, 
+             private_key, pseudoprime ) 
     print "Decoded text: %d" %decode
