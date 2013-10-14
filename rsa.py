@@ -3,18 +3,16 @@ import random
 import sys
 
 def Miller_Rabin(n, k=100):
-    if n % 2 == 0:
+    if n % 2 == 0 or n % 3 == 0:
         return False
     s = 0
     d =  n-1
     while d % 2 == 0:
         d = d / 2
         s += 1
-    assert(2**s*d == n-1)
     for i in xrange(k):
         a = random.randrange(2, n-1)
-        return validation(a, d, n, s)
-        if not validation:
+        if not validation(a, d, n, s):
             return False
     return True
 
@@ -74,9 +72,9 @@ def init_rsa( millerab_par, bitlength ):
                                
 if __name__ == "__main__":
     import sys
-    bitlength = 16 
+    keylength = 16 
     pseudoprime, public_key, private_key = init_rsa( int( sys.argv[1]),
-                                                            bitlength) 
+                                                            keylength) 
     print pseudoprime
     print public_key
     print private_key
