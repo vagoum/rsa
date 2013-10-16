@@ -1,9 +1,4 @@
-"""
 
-This file is called eucledes because it contains a few
-classical functions that are known since that guy's epoch
-
-"""
 
 
 #returns a number c such that d*a + c*b = gcd(a,b) for some d
@@ -30,6 +25,7 @@ def gcd(m, n):
     	m = temp
     return m
 
+# needs to be fixed
 def get_comprime( number ):
     for i in range(2,int( number**0.5 )):
         if gcd( number, i ) == 1:

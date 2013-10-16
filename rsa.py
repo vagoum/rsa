@@ -3,7 +3,7 @@
 import random
 import sys
 import millerabin
-import eucledes
+import euclid
       	     
 
 #---------------Calculates all the pretty stuff------------------------------

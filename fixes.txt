@@ -1,0 +1,5 @@
+Things to be fixed/added:
+-input
+-public key too short
+-increase keylength
+-echo keys to files
