@@ -2,8 +2,8 @@
 
 import random
 import sys
-import millerabin
-import euclid
+from modules import millerabin, euclid
+
       	     
 
 #---------------Calculates all the pretty stuff------------------------------
@@ -22,8 +22,8 @@ def init_rsa( keylength ):
     totient = ( p[0]-1 ) * ( p[1]-1 )
 
 
-    public_enc_key = eucledes.get_comprime( totient )
-    private_dec_key = eucledes.extended_gcd(totient,
+    public_enc_key = euclid.get_comprime( totient )
+    private_dec_key = euclid.extended_gcd(totient,
                                    public_enc_key)
     
     return modulus, public_enc_key, private_dec_key
