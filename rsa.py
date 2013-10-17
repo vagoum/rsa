@@ -3,29 +3,36 @@
 import random
 import sys
 from modules import millerabin, euclid
-
       	     
-
 #---------------Calculates all the pretty stuff------------------------------
 
 def init_rsa( keylength ):
-    
+
+#------------Generate 2 random prime numbers---------------------------------
     p = [0, 0]
     for i in range(0, 2):    
-        p[i] = random.getrandbits( int( keylength ))
+        p[i] = random.getrandbits( int( keylength ) )
 
         while millerabin.isprime( p[i] ) != True:
             p[i] = random.getrandbits( keylength )
 
+#-----------Calculate modulus n (=p*q) and Euler's totient function----------
 
     modulus = p[0] * p[1]
     totient = ( p[0]-1 ) * ( p[1]-1 )
 
 
-    public_enc_key = euclid.get_comprime( totient )
+#-----------Generating the pulic key-----------------------------------------
+
+    public_enc_key = euclid.gimmekey( totient )
+
+#-----------Generating the private key---------------------------------------
+   
     private_dec_key = euclid.extended_gcd(totient,
                                    public_enc_key)
     
+  
+
     return modulus, public_enc_key, private_dec_key
 
 
@@ -35,10 +42,10 @@ def init_rsa( keylength ):
 if __name__ == "__main__":
    
     import sys
-    if len( sys.argv ) != 2 :
-	print 'Invalid parameters'
+    if len( sys.argv ) != 2:
+	print 'Invalid number of parameters'
 	exit()
-    keylength =int( sys.argv[1])
+    keylength = int( sys.argv[1])
 	 
     pseudoprime, public_key, private_key = init_rsa( keylength ) 
     

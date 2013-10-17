@@ -1,12 +1,11 @@
-
 """
+
 An implementation of the probabilistic Miller_Rabin Algorithm
 for primality testing.Given a parameter k,the algorithm gets the
 correct result 1 - (1/4)^k of the times.Returns False when number 
 is definitely composite and True when number is probably prime.
 
 """
-
 
 import random
 
@@ -15,9 +14,11 @@ def isprime(n, k=100):
         return False
     s = 0
     d =  n-1
+
     while d % 2 == 0:
         d = d / 2
         s += 1
+
     for i in xrange(k):
         a = random.randrange(2, n-1)
         if not validation(a, d, n, s):

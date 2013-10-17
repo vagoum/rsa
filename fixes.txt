@@ -2,4 +2,5 @@ Things to be fixed/added:
 -display messages for invalid input
 -public key too short(study rsa pdf)
 -increase maximum  keylength
+-make the random prime generation more random
 -echo keys to files
