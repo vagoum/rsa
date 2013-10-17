@@ -35,7 +35,11 @@ def init_rsa( keylength ):
 if __name__ == "__main__":
    
     import sys
+    if len( sys.argv ) != 2 :
+	print 'Invalid parameters'
+	exit()
     keylength =int( sys.argv[1])
+	 
     pseudoprime, public_key, private_key = init_rsa( keylength ) 
     
 
