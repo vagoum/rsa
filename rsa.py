@@ -2,7 +2,7 @@
 
 import random
 import sys
-from modules import millerabin, euclid
+from modules import millerabin, modinverse, coprime 
       	     
 #---------------Calculates all the pretty stuff------------------------------
 
@@ -24,11 +24,11 @@ def init_rsa( keylength ):
 
 #-----------Generating the pulic key-----------------------------------------
 
-    public_enc_key = euclid.gimmekey( totient )
+    public_enc_key = coprime.gimmekey( totient )
 
 #-----------Generating the private key---------------------------------------
    
-    private_dec_key = euclid.extended_gcd(totient,
+    private_dec_key = modinverse.extended_gcd(totient,
                                    public_enc_key)
     
   
