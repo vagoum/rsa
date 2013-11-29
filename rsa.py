@@ -4,27 +4,29 @@ import random
 import sys
 from modules import millerabin, modinverse, coprime
 
-
 def init_rsa(keylength):
     p = [0, 0]
     for i in range(0, 2):
         p[i] = random.getrandbits(int(keylength))
         while not millerabin.isprime(p[i]):
             p[i] = random.getrandbits(keylength)
+
     modulus = p[0] * p[1]
     totient = (p[0]-1) * (p[1]-1)
     public_enc_key = coprime.gimmekey(totient)
     private_dec_key = modinverse.extgcd(totient,
                                         public_enc_key)
+    
+    with open('public_key','w') as pk:
+        pk.write(str(public_enc_key))
+    with open('private_key','w') as sk:
+        sk.write(str(private_dec_key))
+     
     return modulus, public_enc_key, private_dec_key
 
 
 if (__name__ == "__main__"):
-    import sys
-    if len(sys.argv) != 2:
-        print 'Invalid number of parameters'
-        exit()
-    keylength = int(sys.argv[1])
+    keylength = 16
     pseudoprime, public_key, private_key = init_rsa(keylength)
     print pseudoprime
     print public_key
